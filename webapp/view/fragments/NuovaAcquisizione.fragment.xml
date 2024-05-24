@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        title="Aggiungi"
+        contentWidth="30rem"
+        contentHeight="20rem"
+        class="sapUiContentPadding"
+        >
+        <Label text="Nome" />
+        <Input
+            name="Prodotto"
+            placeholder="Inserisci il nome della pianificazione"
+            value="{newPlanningModel>/newPlanning/fullname}"
+        />
+        <Label text="Cliente" />
+        <Input
+            placeholder="Inserisci il nome della pianificazione"
+            value="{/newPlanning/name}"
+        />
+        <Label text="Probabilità" />
+        <Input
+            placeholder="Inserisci il nome della pianificazione"
+            value="{/newPlanning/name}"
+        />
+        <Label text="Periodo" />
+		<DateRangeSelection
+			id="DRS1"
+			class="DRS1"
+			value= "{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'yyyy/MM/dd'
+				},
+				'parts': [
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/start'
+					},
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/end'
+					}
+				]
+			}"
+			change="handleChange"/>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="Annulla"
+                    press="onCancel"
+                />
+                <Button
+                    text="Aggiungi"
+                    type="Emphasized"
+                    press="onSave"
+                />
+            </Toolbar>
+        </footer>
+    </Dialog>
+</core:FragmentDefinition>

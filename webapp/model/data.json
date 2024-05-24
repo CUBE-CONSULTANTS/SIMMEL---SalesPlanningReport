@@ -1,0 +1,78 @@
+[
+    {
+        "id": "1",
+        "cliente": "Cliente 1",
+        "probabilita": "H1",
+        "descrProb": "Probabile",
+        "prodotto": "Prodotto 1",
+        "prodDescr": "Descrizione Prodotto 1",
+        "quantita": "100",
+        "valoreRicavo": "1000",
+        "nazionalita": "Italia",
+        "periodoAcquisizione": "01-01-2022",
+        "periodoConsegna": "31-12-2022",
+        "date": {
+            "da": "01-01-2022",
+            "a": "31-12-2022"
+        },
+        "note": "Note Cliente 1"
+    },
+    {
+        "id": "2",
+        "cliente": "Cliente 2",
+        "probabilita": "H2",
+        "descrProb": "Poco probabile",
+        "prodotto": "Prodotto 2",
+        "prodDescr": "Descrizione Prodotto 2",
+        "quantita": "100",
+        "valoreRicavo": "1000",
+        "Nazionalita": "Francia",
+        "periodoAcquisizione": "01-01-2022",
+        "periodoConsegna": "31-12-2022",
+        "date": {
+            "da": "01-01-2022",
+            "a": "31-12-2022"
+        },
+        "note": "Note Cliente 2"
+
+    },
+    {
+        "id": "3",
+        "cliente": "Cliente 3",
+        "probabilita": "H3",
+        "descrProb": "Non Probabile",
+        "prodotto": "Prodotto 3",
+        "prodDescr": "Descrizione Prodotto 3",
+        "quantita": "100",
+        "valoreRicavo": "1000",
+        "Nazionalita": "Italia",
+        "periodoAcquisizione": "01-01-2022",
+        "periodoConsegna": "31-12-2022",
+        "date": {
+            "da": "01-01-2022",
+            "a": "31-12-2022"
+        },
+        "note": "Note Cliente 3"
+    },
+    {
+        "id": "4",
+        "cliente": "Cliente 4",
+        "probabilita": "H2",
+        "descrProb": "Poco probabile",
+        "prodotto": "Prodotto 4",
+        "prodDescr": "Descrizione Prodotto 4",
+        "quantita": "100",
+        "valoreRicavo": "1000",
+        "Nazionalita": "Germania",
+        "periodoAcquisizione": "01-01-2022",
+        "periodoConsegna": "31-12-2022",
+        "date": {
+            "da": "01-01-2022",
+            "a": "31-12-2022"
+        },
+        "note": "Note Cliente 4"
+
+    }
+    
+    
+]
