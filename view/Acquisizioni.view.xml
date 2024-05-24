@@ -1,0 +1,243 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    controllerName="salesplanningreport.controller.Acquisizioni"
+>
+    <f:DynamicPage headerExpanded="{/headerExpanded}">
+        <f:header>
+            <f:DynamicPageHeader>
+                <f:content>
+                    <fb:FilterBar
+                        id="filterbar"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        search=".onSearch"
+                        filterChange=".onFilterChange"
+                        afterVariantLoad=".onAfterVariantLoad"
+                    >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                name="Prodotto"
+                                label="Prodotto"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <MultiComboBox
+                                        name="Prodotto"
+                                        selectionChange=".onSelectionChange"
+                                        items="{
+												path: '/ProductNames',
+												templateShareable: true
+											}"
+                                    >
+                                        <core:Item
+                                            key="{key}"
+                                            text="{name}"
+                                        />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Category"
+                                label="Category"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <MultiComboBox
+                                        name="Category"
+                                        selectionChange=".onSelectionChange"
+                                        items="{
+												path: '/ProductCategories',
+												templateShareable: true
+											}"
+                                    >
+                                        <core:Item
+                                            key="{key}"
+                                            text="{name}"
+                                        />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Probabilità"
+                                label="Probabilità"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Select
+                                        name="Probabilità"
+                                        change=".onSelectionChange"
+                                        showSecondaryValues= "true"
+					                    items="{ path: 'ProductModel>/' }"
+                                    >
+                                    <core:ListItem text="{ProductModel>descrProb}" additionalText="{ProductModel>probabilita}"/>      
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Periodo"
+                                label="Periodo"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <DateRangeSelection
+                                        id="DRS1"
+                                        class="DRS1"
+                                        value="{
+                                                'type': 'sap.ui.model.type.DateInterval',
+                                                'formatOptions': {
+                                                    'pattern': 'yyyy/MM/dd'
+                                                },
+                                                'parts': [
+                                                    {
+                                                        'type': 'sap.ui.model.type.Date',
+                                                        'path': '/start'
+                                                    },
+                                                    {
+                                                        'type': 'sap.ui.model.type.Date',
+                                                        'path': '/end'
+                                                    }
+                                                ]
+                                            }"
+                                        change="handleChange"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table
+                id="table"
+                inset="false"
+                items="{ProductModel>/}"
+                mode="SingleSelectMaster"
+                itemPress="onListItemPress"
+                class="sapFDynamicPageAlignContent"
+            >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title
+                            text="Acquisizioni"
+                            level="H2"
+                        />
+                        <ToolbarSpacer />
+                        <Button
+                            icon="sap-icon://add"
+                            press="onAdd"
+                            type="Emphasized"
+                            text="Aggiungi Pianificazione"
+                        />
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Prodotto" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Cliente" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Probabilità" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Periodo" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                        vAlign="Middle"
+                        type="Navigation"
+                    >
+                        <cells>
+                            <Text text="{ProductModel>prodotto}" />
+                            <Text text="{ProductModel>cliente}" />
+                            <Text text="{ProductModel>probabilita}" />
+                            <Text text="{ProductModel>date/da} - {ProductModel>date/a}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="Approve"
+                    press="onPress"
+                    type="Accept"
+                />
+                <Button
+                    text="Reject"
+                    press="onPress"
+                    type="Reject"
+                />
+
+                <Button
+                    text="Mark as Favorite"
+                    press="onPress"
+                    visible="{range>/isNoPhone}"
+                />
+
+                <Button
+                    text="Send Email"
+                    press="onPress"
+                    visible="{range>/isNoPhone}"
+                />
+
+                <Button
+                    text="Share"
+                    press="onPress"
+                    visible="{range>/isNoPhone}"
+                />
+
+                <Button
+                    text="Print"
+                    press="onPress"
+                    visible="{range>/isNotPhoneOrTablet}"
+                />
+                <Button
+                    icon="sap-icon://print"
+                    press="onPress"
+                    visible="{range>/isTablet}"
+                />
+
+                <Button
+                    text="Export as Excel"
+                    press="onPress"
+                    visible="{range>/isNotPhoneOrTablet}"
+                />
+
+                <Button
+                    icon="sap-icon://overflow"
+                    press="onOpen"
+                    visible="{range>/isPhoneOrTablet}"
+                />
+            </Toolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>
