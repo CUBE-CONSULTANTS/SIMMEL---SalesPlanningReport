@@ -138,6 +138,12 @@
                             type="Emphasized"
                             text="Aggiungi Pianificazione"
                         />
+                        <Button
+                            icon="sap-icon://add"
+                            press="onAdd"
+                            type="Emphasized"
+                            text="Importa Pianificazione"
+                        />
                     </Toolbar>
                 </headerToolbar>
 
