@@ -31,37 +31,36 @@
                                         name="Prodotto"
                                         selectionChange=".onSelectionChange"
                                         items="{
-												path: '/ProductNames',
+												path: 'ProductModel>/',
 												templateShareable: true 
 											}"
                                     >
                                         <core:Item
-                                            key="{key}"
-                                            text="{name}"
+                                            key="{ProductModel>prodotto}"
+                                            text="{ProductModel>prodotto}"
                                         />
                                     </MultiComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
-                                name="Category"
-                                label="Category"
+                                name="Cliente"
+                                label="Cliente"
                                 groupName="Group1"
                                 visibleInFilterBar="true"
                             >
                                 <fb:control>
-                                    <MultiComboBox
-                                        name="Category"
-                                        selectionChange=".onSelectionChange"
+                                    <Select
+                                        name="Cliente"
+                                        change=".onSelectionChange"
+                                        
                                         items="{
-												path: '/ProductCategories',
-												templateShareable: true
-											}"
+												path: 'ProductModel>/'}"
                                     >
-                                        <core:Item
-                                            key="{key}"
-                                            text="{name}"
+                                        <core:ListItem
+                                            key="{ProductModel>cliente}"
+                                            text="{ProductModel>cliente}"
                                         />
-                                    </MultiComboBox>
+                                    </Select>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
@@ -139,7 +138,7 @@
                             text="Aggiungi Pianificazione"
                         />
                         <Button
-                            icon="sap-icon://add"
+                            icon="sap-icon://upload"
                             press="onAdd"
                             type="Emphasized"
                             text="Importa Pianificazione"

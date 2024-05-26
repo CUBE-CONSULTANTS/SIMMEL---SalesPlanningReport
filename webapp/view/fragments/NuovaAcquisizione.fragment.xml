@@ -1,61 +1,94 @@
 <core:FragmentDefinition
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
 >
     <Dialog
         title="Aggiungi"
-        contentWidth="30rem"
-        contentHeight="20rem"
+        contentWidth="35rem"
+        contentHeight="auto"
         class="sapUiContentPadding"
         >
-        <Label text="Nome" />
-        <Input
-            name="Prodotto"
-            placeholder="Inserisci il nome della pianificazione"
-            value="{newPlanningModel>/newPlanning/fullname}"
-        />
-        <Label text="Cliente" />
-        <Input
-            placeholder="Inserisci il nome della pianificazione"
-            value="{/newPlanning/name}"
-        />
-        <Label text="Probabilità" />
-        <Input
-            placeholder="Inserisci il nome della pianificazione"
-            value="{/newPlanning/name}"
-        />
-        <Label text="Periodo" />
-		<DateRangeSelection
-			id="DRS1"
-			class="DRS1"
-			value= "{
-				'type': 'sap.ui.model.type.DateInterval',
-				'formatOptions': {
-					'pattern': 'yyyy/MM/dd'
-				},
-				'parts': [
-					{
-						'type': 'sap.ui.model.type.Date',
-						'path': '/start'
-					},
-					{
-						'type': 'sap.ui.model.type.Date',
-						'path': '/end'
-					}
-				]
-			}"
-			change="handleChange"/>
-
+        <form:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="4"
+            emptySpanS="0"
+            columnsXL="2"
+            columnsL="2"
+            columnsM="1"
+            singleContainerFullSize="false"
+        >
+            <form:content>
+                <Label text="Prodotto finito" />
+                <Input
+                    placeholder="Seleziona da anagrafica SAP o inserisci un nuovo prodotto"
+                />
+                <Label text="Descrizione prodotto finito" />
+                <TextArea
+                    placeholder="Inserisci una descrizione dettagliata del prodotto"
+                />
+                <Label text="Quantità" />
+                <Input
+                    placeholder="Inserisci la quantità del prodotto"
+                />
+                <Label text="Valore ricavo € previsto" />
+                <Input
+                    placeholder="Inserisci il valore di ricavo previsto in €"
+                />
+                <Label text="Cliente" />
+                <Input
+                    placeholder="Seleziona da anagrafica SAP o inserisci un nuovo cliente"
+                />
+                <Label text="Nazioni Country End User" />
+                <ComboBox
+                    placeholder="Seleziona le nazioni del Country End User"
+                />
+                <Label text="Probabilità" />
+                <ComboBox
+                    placeholder="Seleziona la probabilità"
+                    items="{
+                        path: 'probabilities',
+                        template: new sap.ui.core.Item({text: '{probability}'})
+                    }"
+                />
+                <Label text="Periodo acquisizione ordine" />
+                <DateRangeSelection
+                    id="orderAcquisitionPeriod"
+                    class="orderAcquisitionPeriod"
+                    change="handleChange"
+                />
+                <Label text="Periodo ipotesi consegna" />
+                <DateRangeSelection
+                    id="deliveryHypothesisPeriod"
+                    class="deliveryHypothesisPeriod"
+                    change="handleChange"
+                />
+                <Label text="Note ipotesi acquisizione" />
+                <TextArea
+                    placeholder="Inserisci le note dettagliate dell'ipotesi di acquisizione"
+                />
+            </form:content>
+        </form:SimpleForm>
         <footer>
             <Toolbar>
                 <ToolbarSpacer />
                 <Button
                     text="Annulla"
+                    icon="sap-icon://decline"
                     press="onCancel"
                 />
                 <Button
                     text="Aggiungi"
                     type="Emphasized"
+                    icon="sap-icon://add"
                     press="onSave"
                 />
             </Toolbar>
