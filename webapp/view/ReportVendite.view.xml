@@ -1,12 +1,21 @@
-<mvc:XMLView controllerName="salesplanningreport.controller.ReportVendite" displayBlock="true"
+<mvc:XMLView
+    controllerName="salesplanningreport.controller.ReportVendite"
+    displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form"
     xmlns:table="sap.m.table"
     xmlns:column="sap.m.Column"
-
+    xmlns:columnlistitem="sap.m.ColumnListItem"
+    xmlns:toolbar="sap.m.Toolbar"
+    xmlns:title="sap.m.Title"
+    xmlns:button="sap.m.Button"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:layout="sap.ui.layout"
 >
     <f:DynamicPage>
         <f:title>
@@ -22,64 +31,236 @@
         </f:title>
         <f:header>
             <f:DynamicPageHeader pinnable="true">
-                <f:content />
+                <f:content>
+                    <fb:FilterBar
+                        id="filterbar"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        search=".onSearch"
+                        filterChange=".onFilterChange"
+                        afterVariantLoad=".onAfterVariantLoad"
+                    >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                name="Prodotto"
+                                label="Prodotto"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Select
+                                        name="Prodotto"
+                                        change=".onSelectionChange"
+                                        items="{
+                                                path: 'ProductModel>/'}"
+                                    >
+                                        <core:ListItem />
+                                        <core:ListItem
+                                            key="{ProductModel>prodotto}"
+                                            text="{ProductModel>prodotto}"
+                                        />
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Cliente"
+                                label="Cliente"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Select
+                                        name="Cliente"
+                                        change=".onSelectionChange"
+                                        items="{
+												path: 'ProductModel>/'}"
+                                    >
+                                        <core:ListItem
+                                            key="{ProductModel>cliente}"
+                                            text="{ProductModel>cliente}"
+                                        />
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Probabilità"
+                                label="Probabilità"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Select
+                                        name="Probabilità"
+                                        change=".onSelectionChange"
+                                        showSecondaryValues="true"
+                                    >
+                                        <core:ListItem
+                                            text=""
+                                            additionalText=""
+                                        />
+
+                                        <core:ListItem
+                                            text="H1"
+                                            additionalText="Molto Probabile"
+                                        />
+                                        <core:ListItem
+                                            text="H2"
+                                            additionalText="Probabile"
+                                        />
+                                        <core:ListItem
+                                            text="H3"
+                                            additionalText="Poco Probabile"
+                                        />
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Periodo"
+                                label="Periodo"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <DateRangeSelection
+                                        id="DRS1"
+                                        class="DRS1"
+                                        value="{
+                                                'type': 'sap.ui.model.type.DateInterval',
+                                                'formatOptions': {
+                                                    'pattern': 'yyyy/MM/dd'
+                                                },
+                                                'parts': [
+                                                    {
+                                                        'type': 'sap.ui.model.type.Date',
+                                                        'path': '/start'
+                                                    },
+                                                    {
+                                                        'type': 'sap.ui.model.type.Date',
+                                                        'path': '/end'
+                                                    }
+                                                ]
+                                            }"
+                                        change="handleChange"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
             </f:DynamicPageHeader>
         </f:header>
+
+        
         <f:content>
-            <Table
-                id="tableReportVendite"
-                inset="false"
-                items="{ProductModel>/}"
-            >
-                <headerToolbar>
-                    <Toolbar>
-                        <Title
-                            text="reportpianificazionevendite"
-                            level="H2"
-                        />
-                        <ToolbarSpacer />
-                        <!-- <Button
-                            icon="sap-icon://add"
-                            press="onAdd"
-                            type="Emphasized"
-                            text="Aggiungi Pianificazione"
-                        /> -->
-                        <Button
-                            icon="sap-icon://print"
-                            press="onExport"
-                            type="Emphasized"
-                            text="Esporta Pianificazione"
-                        />
-                    </Toolbar>
-                </headerToolbar>
-                <columns>
-                    <Column>
-                        <Text text="Cliente" />
-                    </Column>
-                    <Column>
-                        <Text text="Prodotto" />
-                    </Column>
-                    <Column>
-                        <Text text="Quantità" />
-                    </Column>
-                    <Column>
-                        <Text text="Valore" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem
-                        vAlign="Middle"
-                        type="Inactive"
-                    >
-                        <cells>
-                            <Text text="{ProductModel>cliente}" />
-                            <Text text="{ProductModel>prodotto}" />
-                            <Text text="{ProductModel>quantita}" />
-                            <Text text="{ProductModel>valoreRicavo}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
+            <VBox>
+                <Table
+                    id="tableReportVendite"
+                    inset="false"
+                    items="{ProductModel>/}"
+                >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title
+                                text="{i18n>risultatidiricerca}"
+                                level="H2"
+                            />
+                            <ToolbarSpacer />
+                            <SegmentedButton selectionChange="onViewChange">
+                                <items>
+                                    <SegmentedButtonItem
+                                        text="Tabella"
+                                        key="table"
+                                    />
+                                    <SegmentedButtonItem
+                                        text="Grafico"
+                                        key="chart"
+                                    />
+                                </items>
+                            </SegmentedButton>
+                            <Button
+                                icon="sap-icon://print"
+                                press="onExport"
+                                type="Emphasized"
+                                text="Esporta Pianificazione"
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="Cliente" />
+                        </Column>
+                        <Column>
+                            <Text text="Prodotto" />
+                        </Column>
+                        <Column>
+                            <Text text="Quantità" />
+                        </Column>
+                        <Column>
+                            <Text text="Valore" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem
+                            vAlign="Middle"
+                            type="Inactive"
+                        >
+                            <cells>
+                                <Text text="{ProductModel>cliente}" />
+                                <Text text="{ProductModel>prodotto}" />
+                                <Text text="{ProductModel>quantita}" />
+                                <Text text="{ProductModel>valoreRicavo}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+    <layout:FixFlex id='chartFixFlex' minFlexSize="250">
+        <!--Below is the setting panel -->
+        <!-- <layout:fixContent>
+            <Panel id='settingsPanel' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
+                <content>
+                    <HBox class='settingsHBox'>
+                    <VBox width="200px">
+                        <Label text = '{/chartType/name}' design="Bold" class='settingsLabel'></Label>
+                        <Select id='chartTypeSelect' class='settingsSelect' selectedKey='{/chartType/defaultSelected}' maxWidth="150px" change='onChartTypeChanged' 
+                            items="{path: '/chartType/values'}">
+                            <items>
+                                <core:Item text="{name}" key="{key}" />
+                            </items>
+                        </Select>
+                    </VBox>
+                    </HBox>
+                </content>
+            </Panel>
+        </layout:fixContent> -->
+        <layout:flexContent>
+            <viz:VizFrame id="chartReportVendite" visible="false" uiConfig="{applicationSet:'fiori'}"
+                height='100%' width="100%" vizType='timeseries_column'>
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{/milk}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Date"
+                                value="{Date}" dataType="date"/>
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Revenue"
+                                value="{Revenue}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+
+                <viz:feeds>
+                    <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                        values="Revenue" />
+                    <viz.feeds:FeedItem uid="timeAxis" type="Dimension"
+                        values="Date" />
+                </viz:feeds>
+                <viz:dependents>
+                    <viz:Popover id="idPopOver"></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+        </layout:flexContent>
+    </layout:FixFlex>
+            </VBox>
         </f:content>
     </f:DynamicPage>
 </mvc:XMLView>

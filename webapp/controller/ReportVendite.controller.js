@@ -14,8 +14,30 @@ sap.ui.define([
         return BaseController.extend("salesplanningreport.controller.ReportVendite", {
             onInit: function () {
 
+                var oModel = new sap.ui.model.json.JSONModel();
+                oModel.setData({
+                    milk: [
+                        { Date: new Date(2022, 0, 1), Revenue: 100 },
+                        { Date: new Date(2022, 0, 2), Revenue: 200 },
+                        { Date: new Date(2022, 0, 3), Revenue: 300 },
+                        { Date: new Date(2022, 0, 4), Revenue: 400 },
+                        { Date: new Date(2022, 0, 5), Revenue: 500 }
+                    ],
+                    chartType: {
+                        name: "Chart Type",
+                        defaultSelected: "timeseries_column",
+                        values: [
+                            { name: "Column", key: "timeseries_column"}
+                            // Altri tipi di grafico qui
+                        ]
+                    }
+                });
+                
+                this.getView().setModel(oModel);
+
             },
 
+            
 
             
 
@@ -60,6 +82,32 @@ sap.ui.define([
                     oSheet.destroy()
                 })
             },
+
+
+            onViewChange: function (oEvent) {
+                let sKey = oEvent.getParameter('item').getProperty('key')
+                let oTable = this.byId("tableReportVendite");
+                let oChart = this.byId("chartReportVendite");
+                if (sKey === "table") {
+                    oTable.getColumns().forEach(function (oColumn) {
+                        oColumn.setVisible(true);
+                    });
+                    oTable.getItems().forEach(function (oItem) {
+                        oItem.setVisible(true);
+                    });
+                    oChart.setVisible(false);
+                } else if (sKey === "chart") {
+                    oTable.getColumns().forEach(function (oColumn) {
+                        oColumn.setVisible(false);
+                    });
+                    oTable.getItems().forEach(function (oItem) {
+                        oItem.setVisible(false);
+                    });
+                    oChart.setVisible(true);
+                }
+            },
+
+
 
 
         });
