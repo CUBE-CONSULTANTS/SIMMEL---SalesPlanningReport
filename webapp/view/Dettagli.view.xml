@@ -31,35 +31,21 @@
 						<actions>
 							<m:Button
 									id="editSaveButton"
-									text="Edit"
+									text="Modifica"
 									type="Emphasized"
 									press="onEditSave"/>
-							<m:Button
-									text="Delete"
-									type="Transparent"/>
-							<m:Button
-									text="Copy"
-									type="Transparent"/>
-							<m:Button
-									text="Toggle Footer"
-									type="Transparent"
-									press="onToggleFooter"/>
-							<m:Button
-									icon="sap-icon://action"
-									type="Transparent"/>
+
 						</actions>
 
 						<navigationActions>
-							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
-							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
-							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose"  tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+							<m:Button type="Transparent" text="Chiudi" icon="sap-icon://decline" press="handleClose"  tooltip="Close middle column"/>
 						</navigationActions>
 
 					</ObjectPageDynamicHeaderTitle>
 				</headerTitle>
 
 				<headerContent>
-					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+					<!-- <m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
 						<f:Avatar src="../../../../../../../{products>ProductPicUrl}"
 								  displaySize="L"
 								  displayShape="Square"
@@ -73,11 +59,7 @@
 							<m:Label text="Nazionalità" design="Bold"/>
 							<m:Text text="{ProductModel>/nazionalita}"/>
 						</m:VBox>
-						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-							<m:Label text="Price"/>
-							<m:ObjectNumber number="{products>CurrencyCode} {products>Price}" emphasized="false"/>
-						</m:VBox>
-					</m:FlexBox>
+					</m:FlexBox> -->
 				</headerContent>
 
 		<sections>
@@ -97,6 +79,10 @@
 								columnsL="1"
 								columnsM="1">
 								<form:content>
+									<m:Label text="Probabilità" design="Bold"/>
+									<m:Input value="{ProductModel>/probabilita}" editable="false"/>
+									<m:Label text="Nazionalità" design="Bold"/>
+									<m:Input value="{ProductModel>/nazionalita}" editable="false"/>
 									<m:Label text="Prodotto finito" design="Bold"/>
 									<m:Input value="{ProductModel>/prodotto}" editable="false"/>
 									<m:Label text="Descrizione Prodotto Finito" design="Bold" />

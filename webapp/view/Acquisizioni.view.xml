@@ -27,19 +27,21 @@
                                 visibleInFilterBar="true"
                             >
                                 <fb:control>
-                                    <MultiComboBox
+                                    <Select
                                         name="Prodotto"
-                                        selectionChange=".onSelectionChange"
+                                        change=".onSelectionChange"
                                         items="{
-												path: 'ProductModel>/',
-												templateShareable: true 
-											}"
+                                                path: 'ProductModel>/'}"
+
                                     >
-                                        <core:Item
+                                        <core:ListItem 
+                                            
+                                        />
+                                        <core:ListItem
                                             key="{ProductModel>prodotto}"
                                             text="{ProductModel>prodotto}"
                                         />
-                                    </MultiComboBox>
+                                    </Select>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
@@ -52,7 +54,6 @@
                                     <Select
                                         name="Cliente"
                                         change=".onSelectionChange"
-                                        
                                         items="{
 												path: 'ProductModel>/'}"
                                     >
@@ -73,10 +74,25 @@
                                     <Select
                                         name="Probabilità"
                                         change=".onSelectionChange"
-                                        showSecondaryValues= "true"
-					                    items="{ path: 'ProductModel>/' }"
+                                        showSecondaryValues="true"
                                     >
-                                    <core:ListItem text="{ProductModel>descrProb}" additionalText="{ProductModel>probabilita}"/>      
+                                        <core:ListItem
+                                            text=""
+                                            additionalText=""
+                                        />
+
+                                        <core:ListItem
+                                            text="H1"
+                                            additionalText="Molto Probabile"
+                                        />
+                                        <core:ListItem
+                                            text="H2"
+                                            additionalText="Probabile"
+                                        />
+                                        <core:ListItem
+                                            text="H3"
+                                            additionalText="Poco Probabile"
+                                        />
                                     </Select>
                                 </fb:control>
                             </fb:FilterGroupItem>
@@ -182,7 +198,9 @@
                             <Text text="{ProductModel>prodotto}" />
                             <Text text="{ProductModel>cliente}" />
                             <Text text="{ProductModel>probabilita}" />
-                            <Text text="{ProductModel>date/da} - {ProductModel>date/a}" />
+                            <Text
+                                text="{ProductModel>date/da} - {ProductModel>date/a}"
+                            />
                         </cells>
                     </ColumnListItem>
                 </items>

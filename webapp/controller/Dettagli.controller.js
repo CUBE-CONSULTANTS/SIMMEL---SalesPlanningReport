@@ -30,7 +30,7 @@ sap.ui.define([
             }
             var aInputs = oForm.getAggregation("form").getAggregation("formContainers")[0].getAggregation("formElements");
         
-            if (oButton.getText() === "Edit") {
+            if (oButton.getText() === "Modifica") {
                
                 oButton.setText("Salva");
         
@@ -38,7 +38,7 @@ sap.ui.define([
                  oInput.getAggregation("fields")[0].setEditable(true);
                 });
             } else {
-                oButton.setText("Edit");
+                oButton.setText("Modifica");
         
                 aInputs.forEach(function(oInput) {
                     oInput.getAggregation("fields")[0].setEditable(false);

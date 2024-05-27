@@ -8,7 +8,7 @@
         contentWidth="35rem"
         contentHeight="auto"
         class="sapUiContentPadding"
-        >
+    >
         <form:SimpleForm
             editable="true"
             layout="ResponsiveGridLayout"
@@ -36,15 +36,16 @@
                     placeholder="Inserisci una descrizione dettagliata del prodotto"
                 />
                 <Label text="Quantità" />
-                <Input
-                    placeholder="Inserisci la quantità del prodotto"
-                />
+                <Input placeholder="Inserisci la quantità del prodotto" />
                 <Label text="Valore ricavo € previsto" />
                 <Input
                     placeholder="Inserisci il valore di ricavo previsto in €"
                 />
                 <Label text="Cliente" />
                 <Input
+                showValueHelp="true"
+                valueHelpRequest="onValueHelpRequest"
+                valueHelpIconSrc="sap-icon://value-help"
                     placeholder="Seleziona da anagrafica SAP o inserisci un nuovo cliente"
                 />
                 <Label text="Nazioni Country End User" />
@@ -52,13 +53,29 @@
                     placeholder="Seleziona le nazioni del Country End User"
                 />
                 <Label text="Probabilità" />
-                <ComboBox
-                    placeholder="Seleziona la probabilità"
-                    items="{
-                        path: 'probabilities',
-                        template: new sap.ui.core.Item({text: '{probability}'})
-                    }"
-                />
+                <Select
+                    name="Probabilità"
+                    change=".onSelectionChange"
+                    showSecondaryValues="true"
+                >
+                    <core:ListItem
+                        text=""
+                        additionalText=""
+                    />
+
+                    <core:ListItem
+                        text="H1"
+                        additionalText="Molto Probabile"
+                    />
+                    <core:ListItem
+                        text="H2"
+                        additionalText="Probabile"
+                    />
+                    <core:ListItem
+                        text="H3"
+                        additionalText="Poco Probabile"
+                    />
+                </Select>
                 <Label text="Periodo acquisizione ordine" />
                 <DateRangeSelection
                     id="orderAcquisitionPeriod"
