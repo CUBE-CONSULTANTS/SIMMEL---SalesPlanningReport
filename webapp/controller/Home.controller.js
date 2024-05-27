@@ -10,8 +10,7 @@ sap.ui.define([
 
         return BaseController.extend("salesplanningreport.controller.Home", {
             onInit: function () {
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                oRouter.navTo("Acquisizioni");
+
             },
             
             navToAcquisizioni : function (){

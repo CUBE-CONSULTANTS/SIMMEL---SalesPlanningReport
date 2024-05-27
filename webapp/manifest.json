@@ -106,6 +106,13 @@
           ]
         },
         {
+          "name": "ReportVendite",
+          "pattern": "ReportVendite",
+          "target": [
+            "ReportVendite"
+          ]
+        },
+        {
           "name": "Dettagli",
           "pattern": "Dettagli/{ID}",
           "target": [
@@ -127,6 +134,13 @@
           "clearControlAggregation": false,
           "viewId": "Acquisizioni",
           "viewName": "Acquisizioni"
+        },
+        "ReportVendite": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "ReportVendite",
+          "viewName": "ReportVendite"
         },
         "Dettagli": {
           "viewType": "XML",

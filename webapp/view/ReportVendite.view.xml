@@ -1,0 +1,85 @@
+<mvc:XMLView controllerName="salesplanningreport.controller.ReportVendite" displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:table="sap.m.table"
+    xmlns:column="sap.m.Column"
+
+>
+    <f:DynamicPage>
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title
+                        class="bold tworem"
+                        textAlign="Center"
+                        text="{i18n>reportpianificazionevendite}"
+                    />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content />
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table
+                id="tableReportVendite"
+                inset="false"
+                items="{ProductModel>/}"
+            >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title
+                            text="reportpianificazionevendite"
+                            level="H2"
+                        />
+                        <ToolbarSpacer />
+                        <!-- <Button
+                            icon="sap-icon://add"
+                            press="onAdd"
+                            type="Emphasized"
+                            text="Aggiungi Pianificazione"
+                        /> -->
+                        <Button
+                            icon="sap-icon://print"
+                            press="onExport"
+                            type="Emphasized"
+                            text="Esporta Pianificazione"
+                        />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Cliente" />
+                    </Column>
+                    <Column>
+                        <Text text="Prodotto" />
+                    </Column>
+                    <Column>
+                        <Text text="Quantità" />
+                    </Column>
+                    <Column>
+                        <Text text="Valore" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        vAlign="Middle"
+                        type="Inactive"
+                    >
+                        <cells>
+                            <Text text="{ProductModel>cliente}" />
+                            <Text text="{ProductModel>prodotto}" />
+                            <Text text="{ProductModel>quantita}" />
+                            <Text text="{ProductModel>valoreRicavo}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:XMLView>

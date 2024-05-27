@@ -22,10 +22,10 @@
         </f:header>
         <f:content>
             <HBox justifyContent="Center" alignItems="Center">
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Pianificazionediacquisizionii}" press="navToAcquisizioni" url="https://www.sap.com/">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>Pianificazionediacquisizioni}" press="navToAcquisizioni" url="https://www.sap.com/">
          
                 </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>reportpianificazionevendite}" press="navToGestCaseifici" url="https://www.sap.com/">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>reportpianificazionevendite}" press="navToReportVendite" url="https://www.sap.com/">
  
                 </GenericTile>
 
