@@ -37,6 +37,15 @@ sap.ui.define([
             this._oDialog.open();
         },
 
+        onLoad: function() {
+            if (!this._oDialog) {
+                this._oDialog = sap.ui.xmlfragment("salesplanningreport.view.fragments.UploadAcquisizione", this);
+                this.getView().addDependent(this._oDialog);
+            }
+            this._oDialog.open();
+            
+        },
+
         onSave: function() {
             let oModel = this.getView().getModel("newPlanningModel");
             let oNewPlanning = oModel.getProperty("/newPlanning");

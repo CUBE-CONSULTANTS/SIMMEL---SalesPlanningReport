@@ -27,7 +27,7 @@
                                 visibleInFilterBar="true"
                             >
                                 <fb:control>
-                                    <Select
+                                    <ComboBox
                                         name="Prodotto"
                                         change=".onSelectionChange"
                                         items="{
@@ -41,7 +41,7 @@
                                             key="{ProductModel>prodotto}"
                                             text="{ProductModel>prodotto}"
                                         />
-                                    </Select>
+                                    </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
@@ -51,7 +51,7 @@
                                 visibleInFilterBar="true"
                             >
                                 <fb:control>
-                                    <Select
+                                    <ComboBox
                                         name="Cliente"
                                         change=".onSelectionChange"
                                         items="{
@@ -61,7 +61,7 @@
                                             key="{ProductModel>cliente}"
                                             text="{ProductModel>cliente}"
                                         />
-                                    </Select>
+                                    </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
@@ -82,16 +82,16 @@
                                         />
 
                                         <core:ListItem
-                                            text="H1"
-                                            additionalText="Molto Probabile"
+                                            text="Molto Probabile"
+                                            additionalText="H1"
                                         />
                                         <core:ListItem
-                                            text="H2"
-                                            additionalText="Probabile"
+                                            text="Probabile"
+                                            additionalText="H2"
                                         />
                                         <core:ListItem
-                                            text="H3"
-                                            additionalText="Poco Probabile"
+                                            text="Poco Probabile"
+                                            additionalText="H3"
                                         />
                                     </Select>
                                 </fb:control>
@@ -155,7 +155,7 @@
                         />
                         <Button
                             icon="sap-icon://upload"
-                            press="onAdd"
+                            press="onLoad"
                             type="Emphasized"
                             text="Importa Pianificazione"
                         />

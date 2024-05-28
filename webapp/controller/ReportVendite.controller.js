@@ -17,12 +17,32 @@ sap.ui.define([
                 var oModel = new sap.ui.model.json.JSONModel();
                 oModel.setData({
                     milk: [
-                        { Date: new Date(2022, 0, 1), Revenue: 100 },
-                        { Date: new Date(2022, 0, 2), Revenue: 200 },
-                        { Date: new Date(2022, 0, 3), Revenue: 300 },
-                        { Date: new Date(2022, 0, 4), Revenue: 400 },
-                        { Date: new Date(2022, 0, 5), Revenue: 500 }
+                        { Date: new Date(2022, 0, 1), Revenue: 100, Costo: 50 },
+                        { Date: new Date(2022, 0, 2), Revenue: 200, Costo: 100 },
+                        { Date: new Date(2022, 0, 3), Revenue: 300, Costo: 150 },
+                        { Date: new Date(2022, 0, 4), Revenue: 400, Costo: 200 },
+                        { Date: new Date(2022, 0, 5), Revenue: 500, Costo: 250 }
+
                     ],
+
+                    milkk: [
+                        {
+                          "Date": "2024-01-01",
+                          "Cost1": 120,
+                          "Cost2": 130,
+                          "Cost3": 140
+                        },
+                        {
+                          "Date": "2024-02-01",
+                          "Cost2": 150,
+                          "Cost3": 160
+                        },
+                        {
+                          "Date": "2024-03-01",
+                          "Cost3": 170,
+
+                        }
+                      ],
                     chartType: {
                         name: "Chart Type",
                         defaultSelected: "timeseries_column",
@@ -87,23 +107,21 @@ sap.ui.define([
             onViewChange: function (oEvent) {
                 let sKey = oEvent.getParameter('item').getProperty('key')
                 let oTable = this.byId("tableReportVendite");
-                let oChart = this.byId("chartReportVendite");
-                if (sKey === "table") {
-                    oTable.getColumns().forEach(function (oColumn) {
-                        oColumn.setVisible(true);
-                    });
-                    oTable.getItems().forEach(function (oItem) {
-                        oItem.setVisible(true);
-                    });
-                    oChart.setVisible(false);
-                } else if (sKey === "chart") {
-                    oTable.getColumns().forEach(function (oColumn) {
-                        oColumn.setVisible(false);
-                    });
-                    oTable.getItems().forEach(function (oItem) {
-                        oItem.setVisible(false);
-                    });
-                    oChart.setVisible(true);
+                let oChart = this.byId("chartReportVenditee");
+                if (sKey === 'table') {
+                    // Mostra la visualizzazione tabellare
+                    this.getView().byId('tableReportVendite').setVisible(true);
+                    // Nascondi la visualizzazione del grafico
+                    this.getView().byId('chartReportVendite').setVisible(false);
+                    this.getView().byId('flexBoxChart').setVisible(false);
+                    
+                } else if (sKey === 'chart') {
+                    // Nascondi la visualizzazione tabellare
+                    this.getView().byId('tableReportVendite').setVisible(false);
+                    // Mostra la visualizzazione del grafico
+                    this.getView().byId('chartReportVendite').setVisible(true);
+                    this.getView().byId('flexBoxChart').setVisible(true);
+                    
                 }
             },
 
