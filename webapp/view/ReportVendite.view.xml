@@ -50,7 +50,7 @@
                                 visibleInFilterBar="true"
                             >
                                 <fb:control>
-                                    <Select
+                                    <ComboBox
                                         name="Prodotto"
                                         change=".onSelectionChange"
                                         items="{
@@ -61,7 +61,7 @@
                                             key="{ProductModel>prodotto}"
                                             text="{ProductModel>prodotto}"
                                         />
-                                    </Select>
+                                    </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
@@ -71,7 +71,7 @@
                                 visibleInFilterBar="true"
                             >
                                 <fb:control>
-                                    <Select
+                                    <ComboBox
                                         name="Cliente"
                                         change=".onSelectionChange"
                                         items="{
@@ -81,7 +81,7 @@
                                             key="{ProductModel>cliente}"
                                             text="{ProductModel>cliente}"
                                         />
-                                    </Select>
+                                    </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
