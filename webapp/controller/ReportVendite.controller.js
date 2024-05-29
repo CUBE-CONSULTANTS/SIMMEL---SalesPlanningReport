@@ -7,86 +7,140 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController , Controller, exportLibrary, Spreadsheet) {
+    function (BaseController, Controller, exportLibrary, Spreadsheet) {
         "use strict";
         var EdmType = exportLibrary.EdmType;
 
         return BaseController.extend("salesplanningreport.controller.ReportVendite", {
             onInit: function () {
 
-                var oModel = new sap.ui.model.json.JSONModel();
-                oModel.setData({
-                    milk: [
-                        { Date: new Date(2022, 0, 1), Revenue: 100, Costo: 50 },
-                        { Date: new Date(2022, 0, 2), Revenue: 200, Costo: 100 },
-                        { Date: new Date(2022, 0, 3), Revenue: 300, Costo: 150 },
-                        { Date: new Date(2022, 0, 4), Revenue: 400, Costo: 200 },
-                        { Date: new Date(2022, 0, 5), Revenue: 500, Costo: 250 }
+                //richiamre modello ProductModel
+                var oModel = this.getOwnerComponent().getModel("ProductModel");
+                this.getView().setModel(oModel, "ProductModel");
+                console.log(oModel);
 
-                    ],
+                //Creare un modello per il grafico estraendo la proprieta probabilita dal modello ProductModel
+                var oModelChart = new sap.ui.model.json.JSONModel();
+                var data = oModel.getProperty("/");
+                var dataChart = [];
 
-                    milkk: [
-                        {
-                          "Date": "2024-01-01",
-                          "Cost1": 120,
-                          "Cost2": 130,
-                          "Cost3": 140
-                        },
-                        {
-                          "Date": "2024-02-01",
-                          "Cost2": 150,
-                          "Cost3": 160
-                        },
-                        {
-                          "Date": "2024-03-01",
-                          "Cost3": 170,
+                var probCounts = {};
 
-                        }
-                      ],
-                    chartType: {
-                        name: "Chart Type",
-                        defaultSelected: "timeseries_column",
-                        values: [
-                            { name: "Column", key: "timeseries_column"}
-                            // Altri tipi di grafico qui
-                        ]
+                data.forEach((item) => {
+                    if (!probCounts[item.probabilita]) {
+                        probCounts[item.probabilita] = 0;
+                    }
+                    probCounts[item.probabilita]++;
+                });
+
+                // Calcolare il totale delle occorrenze
+                var totalCount = Object.values(probCounts).reduce((a, b) => a + b, 0);
+
+                // Creare l'array di dati per il grafico
+                for (var prob in probCounts) {
+                    var count = probCounts[prob];
+                    var percentage = (count / totalCount) * 100;
+                    dataChart.push({
+                        probabilita: prob,
+                        percentage: percentage
+                    });
+                }
+
+                oModelChart.setData(dataChart);
+                this.getView().setModel(oModelChart, "ProductModelChart");
+                console.log(oModelChart);
+
+                var rawData = oModel.getProperty("/");
+
+                var aggregatedData = {};
+                
+                function convertPeriodToMonth(period) {
+                    var monthMap = {
+                        '01': 'GENNAIO',
+                        '02': 'FEBBRAIO',
+                        '03': 'MARZO',
+                        '04': 'APRILE',
+                        '05': 'MAGGIO',
+                        '06': 'GIUGNO',
+                        '07': 'LUGLIO',
+                        '08': 'AGOSTO',
+                        '09': 'SETTEMBRE',
+                        '10': 'OTTOBRE',
+                        '11': 'NOVEMBRE',
+                        '12': 'DICEMBRE'
+                    };
+                
+                    var monthNumber = period.substring(3, 5); // Esempio: "03"
+                    return { monthName: monthMap[monthNumber], monthNumber: monthNumber };
+                }
+                
+                // Aggrega i dati per periodo di acquisizione e probabilità
+                rawData.forEach(function (item) {
+                    var periodo = convertPeriodToMonth(item.periodoAcquisizione); // Esempio: { monthName: "MARZO", monthNumber: "03" }
+                    var monthName = periodo.monthName;
+                    var monthNumber = periodo.monthNumber;
+                
+                    if (!aggregatedData[monthNumber]) {
+                        aggregatedData[monthNumber] = { periodo: monthName, monthNumber: monthNumber, probabile: 0, pocoProbabile: 0, nonProbabile: 0 };
+                    }
+                
+                    if (item.probabilita === "H1") {
+                        aggregatedData[monthNumber].probabile += 1;
+                    } else if (item.probabilita === "H2") {
+                        aggregatedData[monthNumber].pocoProbabile += 1;
+                    } else if (item.probabilita === "H3") {
+                        aggregatedData[monthNumber].nonProbabile += 1;
                     }
                 });
                 
-                this.getView().setModel(oModel);
+                var formattedData = Object.values(aggregatedData);
+                
+                // Ordina i dati in base al numero del mese
+                formattedData.sort(function(a, b) {
+                    return a.monthNumber - b.monthNumber;
+                });
+                
+                var oModel = new sap.ui.model.json.JSONModel();
+                
+                oModel.setData({ data: formattedData });
+                this.getView().setModel(oModel, "ProductModelPeriod");
+                
+                console.log(oModel);
+
+
+
+
+
+
 
             },
-
-            
-
-            
 
 
             createColumnConfig: function () {
                 let aCols = [];
-                aCols.push({ label: 'Cliente', property: 'cliente' , type: EdmType.String });
-                aCols.push({ label: 'Prodotto', property: 'prodotto' , type: EdmType.String });
-                aCols.push({ label: 'Quantità', property: 'quantita' , type: EdmType.Number });
-                aCols.push({ label: 'Valore', property: 'valoreRicavo' , type: EdmType.Number });
+                aCols.push({ label: 'Cliente', property: 'cliente', type: EdmType.String });
+                aCols.push({ label: 'Prodotto', property: 'prodotto', type: EdmType.String });
+                aCols.push({ label: 'Quantità', property: 'quantita', type: EdmType.Number });
+                aCols.push({ label: 'Valore', property: 'valoreRicavo', type: EdmType.Number });
                 return aCols;
-              },
+            },
 
-              onExport: function () {
+            onExport: function () {
                 let aCols, oRowBinding, oSettings, oSheet, oTable
-            
+
                 this._oTable = this.getView().getModel('ProductModel').getProperty('/');
-            
+
                 let tableData = this.getView().byId('tableReportVendite');
                 let oSelectedItems = tableData.getSelectedItems();
-        
+
                 if (oSelectedItems.length > 0) {
                     oRowBinding = oSelectedItems.map(item => item.getBindingContext('ProductModel').getObject());
                 } else {
                     oRowBinding = this._oTable;
                 }
-            
+
                 aCols = this.createColumnConfig();
-            
+
                 oSettings = {
                     workbook: {
                         columns: aCols,
@@ -96,7 +150,7 @@ sap.ui.define([
                     fileName: "Report Pianificazione Vendite",
                     worker: false
                 };
-            
+
                 oSheet = new Spreadsheet(oSettings);
                 oSheet.build().finally(function () {
                     oSheet.destroy()
@@ -114,14 +168,14 @@ sap.ui.define([
                     // Nascondi la visualizzazione del grafico
                     this.getView().byId('chartReportVendite').setVisible(false);
                     this.getView().byId('flexBoxChart').setVisible(false);
-                    
+
                 } else if (sKey === 'chart') {
                     // Nascondi la visualizzazione tabellare
                     this.getView().byId('tableReportVendite').setVisible(false);
                     // Mostra la visualizzazione del grafico
                     this.getView().byId('chartReportVendite').setVisible(true);
                     this.getView().byId('flexBoxChart').setVisible(true);
-                    
+
                 }
             },
 

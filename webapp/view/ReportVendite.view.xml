@@ -325,21 +325,20 @@
                                                     >
                                                         <viz:dataset>
                                                             <viz.data:FlattenedDataset
-                                                                data="{/milk}"
+                                                                data="{ProductModelChart>/}"
                                                             >
                                                                 <viz.data:dimensions
                                                                 >
                                                                     <viz.data:DimensionDefinition
-                                                                        name="Date"
-                                                                        value="{Date}"
-                                                                        dataType="date"
+                                                                        name="Product"
+                                                                        value="{ProductModelChart>probabilita}"
                                                                     />
                                                                 </viz.data:dimensions>
                                                                 <viz.data:measures
                                                                 >
                                                                     <viz.data:MeasureDefinition
-                                                                        name="Revenue"
-                                                                        value="{Revenue}"
+                                                                        name="Probability"
+                                                                        value="{ProductModelChart>percentage}"
                                                                     />
                                                                 </viz.data:measures>
                                                             </viz.data:FlattenedDataset>
@@ -349,19 +348,14 @@
                                                             <viz.feeds:FeedItem
                                                                 uid="size"
                                                                 type="Measure"
-                                                                values="Revenue"
+                                                                values="Probability"
                                                             />
                                                             <viz.feeds:FeedItem
                                                                 uid="color"
                                                                 type="Dimension"
-                                                                values="Date"
+                                                                values="Product"
                                                             />
                                                         </viz:feeds>
-                                                        <viz:dependents>
-                                                            <viz:Popover
-                                                                id="idPopOverr"
-                                                            />
-                                                        </viz:dependents>
                                                     </viz:VizFrame>
                                                 </layout:flexContent>
                                             </layout:FixFlex>
@@ -381,9 +375,9 @@
                                 id="chartContainerr"
                                 showFullScreen="false"
                                 showPersonalization="false"
-                                showLegend="false"
+                                showLegend="true"
                                 showSelectionDetails="false"
-                                showLegendButton="false"
+                                showLegendButton="true"
                                 autoAdjustHeight="false"
                                 showZoom="false"
                                 personalizationPress="attachPersonalizationPress"
@@ -392,8 +386,8 @@
                             >
                                 <commons:content>
                                     <commons:ChartContainerContent
-                                        icon="sap-icon://line-chart"
-                                        title="Line Chart"
+                                        icon="sap-icon://column-chart"
+                                        title="Stacked Column Chart"
                                     >
                                         <commons:content>
                                             <viz:VizFrame
@@ -405,23 +399,26 @@
                                             >
                                                 <viz:dataset>
                                                     <viz.data:FlattenedDataset
-                                                        data="{/milk}"
+                                                        data="{ProductModelPeriod>/data}"
                                                     >
                                                         <viz.data:dimensions>
                                                             <viz.data:DimensionDefinition
-                                                                name="Date"
-                                                                value="{Date}"
-                                                                dataType="date"
+                                                                name="Periodo"
+                                                                value="{periodo}"
                                                             />
                                                         </viz.data:dimensions>
                                                         <viz.data:measures>
                                                             <viz.data:MeasureDefinition
-                                                                name="Revenue"
-                                                                value="{Revenue}"
+                                                                name="Probabile"
+                                                                value="{probabile}"
                                                             />
                                                             <viz.data:MeasureDefinition
-                                                                name="Costo"
-                                                                value="{Costo}"
+                                                                name="Poco Probabile"
+                                                                value="{pocoProbabile}"
+                                                            />
+                                                            <viz.data:MeasureDefinition
+                                                                name="Non Probabile"
+                                                                value="{nonProbabile}"
                                                             />
                                                         </viz.data:measures>
                                                     </viz.data:FlattenedDataset>
@@ -431,12 +428,22 @@
                                                     <viz.feeds:FeedItem
                                                         uid="categoryAxis"
                                                         type="Dimension"
-                                                        values="Date"
+                                                        values="Periodo"
                                                     />
                                                     <viz.feeds:FeedItem
                                                         uid="valueAxis"
                                                         type="Measure"
-                                                        values="Revenue"
+                                                        values="Probabile"
+                                                    />
+                                                    <viz.feeds:FeedItem
+                                                        uid="valueAxis"
+                                                        type="Measure"
+                                                        values="Poco Probabile"
+                                                    />
+                                                    <viz.feeds:FeedItem
+                                                        uid="valueAxis"
+                                                        type="Measure"
+                                                        values="Non Probabile"
                                                     />
                                                 </viz:feeds>
                                                 <viz:dependents>
