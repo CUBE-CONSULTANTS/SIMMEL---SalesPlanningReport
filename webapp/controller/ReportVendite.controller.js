@@ -180,14 +180,14 @@ sap.ui.define([
                     this.getView().byId('tableReportVendite').setVisible(true);
                     // Nascondi la visualizzazione del grafico
                     this.getView().byId('chartReportVendite').setVisible(false);
-                    this.getView().byId('flexBoxChart').setVisible(false);
+                    this.getView().byId('gridChart').setVisible(false);
 
                 } else if (sKey === 'chart') {
                     // Nascondi la visualizzazione tabellare
                     this.getView().byId('tableReportVendite').setVisible(false);
                     // Mostra la visualizzazione del grafico
                     this.getView().byId('chartReportVendite').setVisible(true);
-                    this.getView().byId('flexBoxChart').setVisible(true);
+                    this.getView().byId('gridChart').setVisible(true);
 
                 }
             },

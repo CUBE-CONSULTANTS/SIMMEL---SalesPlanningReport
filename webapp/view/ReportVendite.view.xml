@@ -226,130 +226,109 @@
                     </Table>
                 </VBox>
 
-                <FlexBox
-                    alignContent="SpaceAround"
-                    alignItems="Center"
-                    direction="Row"
-                    class="sapUiNoMargin"
-                    visible="false"
-                    height="auto"
-                    width="100%"
-                    id="chartReportVendite"
-                >
-                    <f:Card
-                        class="sapUiMediumMargin"
-                        width="95vw"
-                        
-                    >
-                        <f:content>
-                            <commons:ChartContainer
-                                id="chartContainerrr"
-                                showFullScreen="false"
-                                showPersonalization="false"
-                                showLegend="true"
-                                showSelectionDetails="false"
-                                showLegendButton="true"
-                                autoAdjustHeight="false"
-                                showZoom="false"
-                                personalizationPress="attachPersonalizationPress"
-                                contentChange="attachContentChange"
-                                title="Revenue"
-                            >
-                                <commons:content>
-                                    <commons:ChartContainerContent
-                                        icon="sap-icon://column-chart"
-                                        title="Stacked Column Chart"
-                                    >
-                                        <commons:content>
-                                            <viz:VizFrame
-                                                id="chartContainerVizFrameee"
-                                                height="700px"
-                                                width="100%"
-                                                uiConfig="{applicationSet:'fiori'}"
-                                                vizType="line"
-                                            >
-                                                <viz:dataset>
-                                                    <viz.data:FlattenedDataset
-                                                        data="{ProductModelPeriod>/data}"
-                                                    >
-                                                        <viz.data:dimensions>
-                                                            <viz.data:DimensionDefinition
-                                                                name="Periodo"
-                                                                value="{periodo}"
-                                                            />
-                                                        </viz.data:dimensions>
-                                                        <viz.data:measures>
-                                                            <viz.data:MeasureDefinition
-                                                                name="Probabile"
-                                                                value="{probabile}"
-                                                            />
-                                                            <viz.data:MeasureDefinition
-                                                                name="Poco Probabile"
-                                                                value="{pocoProbabile}"
-                                                            />
-                                                            <viz.data:MeasureDefinition
-                                                                name="Non Probabile"
-                                                                value="{nonProbabile}"
-                                                            />
-                                                        </viz.data:measures>
-                                                    </viz.data:FlattenedDataset>
-                                                </viz:dataset>
+            <!-- Grafico principale -->
 
-                                                <viz:feeds>
-                                                    <viz.feeds:FeedItem
-                                                        uid="categoryAxis"
-                                                        type="Dimension"
-                                                        values="Periodo"
-                                                    />
-                                                    <viz.feeds:FeedItem
-                                                        uid="valueAxis"
-                                                        type="Measure"
-                                                        values="Probabile"
-                                                    />
-                                                    <viz.feeds:FeedItem
-                                                        uid="valueAxis"
-                                                        type="Measure"
-                                                        values="Poco Probabile"
-                                                    />
-                                                    <viz.feeds:FeedItem
-                                                        uid="valueAxis"
-                                                        type="Measure"
-                                                        values="Non Probabile"
-                                                    />
-                                                </viz:feeds>
-                                                <viz:dependents>
-                                                    <viz:Popover
-                                                        id="idPopOverree"
-                                                    />
-                                                </viz:dependents>
-                                            </viz:VizFrame>
-                                        </commons:content>
-                                    </commons:ChartContainerContent>
-                                </commons:content>
-                            </commons:ChartContainer>
-                        </f:content>
-                    </f:Card>
-                </FlexBox>
+                <f:Card id="chartReportVendite" visible="false">
+                    <f:content>
+                        <commons:ChartContainer
+                            showFullScreen="false"
+                            showPersonalization="false"
+                            showLegend="true"
+                            showSelectionDetails="false"
+                            showLegendButton="true"
+                            autoAdjustHeight="false"
+                            showZoom="false"
+                            personalizationPress="attachPersonalizationPress"
+                            contentChange="attachContentChange"
+                            title="Revenue"
+                            width="100%"
+                        >
+                            <commons:content>
+                                <commons:ChartContainerContent
+                                    icon="sap-icon://column-chart"
+                                    title="Stacked Column Chart"
+                                >
+                                    <commons:content>
+                                        <viz:VizFrame
+                                            id="chartContainerVizFrameee"
+                                            height="700px"
+                                            width="100%"
+                                            uiConfig="{applicationSet:'fiori'}"
+                                            vizType="line"
+                                        >
+                                            <viz:dataset>
+                                                <viz.data:FlattenedDataset
+                                                    data="{ProductModelPeriod>/data}"
+                                                >
+                                                    <viz.data:dimensions>
+                                                        <viz.data:DimensionDefinition
+                                                            name="Periodo"
+                                                            value="{periodo}"
+                                                        />
+                                                    </viz.data:dimensions>
+                                                    <viz.data:measures>
+                                                        <viz.data:MeasureDefinition
+                                                            name="Probabile"
+                                                            value="{probabile}"
+                                                        />
+                                                        <viz.data:MeasureDefinition
+                                                            name="Poco Probabile"
+                                                            value="{pocoProbabile}"
+                                                        />
+                                                        <viz.data:MeasureDefinition
+                                                            name="Non Probabile"
+                                                            value="{nonProbabile}"
+                                                        />
+                                                    </viz.data:measures>
+                                                </viz.data:FlattenedDataset>
+                                            </viz:dataset>
+
+                                            <viz:feeds>
+                                                <viz.feeds:FeedItem
+                                                    uid="categoryAxis"
+                                                    type="Dimension"
+                                                    values="Periodo"
+                                                />
+                                                <viz.feeds:FeedItem
+                                                    uid="valueAxis"
+                                                    type="Measure"
+                                                    values="Probabile"
+                                                />
+                                                <viz.feeds:FeedItem
+                                                    uid="valueAxis"
+                                                    type="Measure"
+                                                    values="Poco Probabile"
+                                                />
+                                                <viz.feeds:FeedItem
+                                                    uid="valueAxis"
+                                                    type="Measure"
+                                                    values="Non Probabile"
+                                                />
+                                            </viz:feeds>
+                                            <viz:dependents>
+                                                <viz:Popover
+                                                    id="idPopOverree"
+                                                />
+                                            </viz:dependents>
+                                        </viz:VizFrame>
+                                    </commons:content>
+                                </commons:ChartContainerContent>
+                            </commons:content>
+                        </commons:ChartContainer>
+                    </f:content>
+                </f:Card>
 
                 <!-- Chart Container -->
-
-                <FlexBox
-                    alignContent="SpaceAround"
-                    alignItems="Center"
-                    direction="Row"
-                    class="sapUiNoMargin"
-                    visible="false"
-                    height="800px"
-                    width="100%"
-                    id="flexBoxChart"
-                >
+                <layout:Grid defaultSpan="L6 M6 S12" id="gridChart" visible="false"> 
+                
+                
+                
                     <f:Card
-                        class="sapUiLargeMargin"
-                        width="1000px"
+                        class="sapUiMediumMargin"
+                       
                     >
                         <f:content>
                             <commons:ChartContainer
-                                height="1000px"
                                 id="chartContainer"
                                 showFullScreen="false"
                                 showPersonalization="false"
@@ -360,12 +339,12 @@
                                 showZoom="false"
                                 personalizationPress="attachPersonalizationPress"
                                 contentChange="attachContentChange"
-                                title="Revenue"
+                                title=""
                             >
                                 <commons:content>
                                     <commons:ChartContainerContent
                                         icon="sap-icon://line-chart"
-                                        title="Line Chart"
+                                        title=""
                                     >
                                         <commons:content>
                                             <layout:FixFlex
@@ -427,7 +406,7 @@
 
                     <f:Card
                         class="sapUiMediumMargin"
-                        width="1000px"
+                        
                     >
                         <f:content>
                             <commons:ChartContainer
@@ -441,12 +420,13 @@
                                 showZoom="false"
                                 personalizationPress="attachPersonalizationPress"
                                 contentChange="attachContentChange"
-                                title="Revenue"
+                                title=""
+                                
                             >
                                 <commons:content>
                                     <commons:ChartContainerContent
                                         icon="sap-icon://column-chart"
-                                        title="Stacked Column Chart"
+                                        title=""
                                     >
                                         <commons:content>
                                             <viz:VizFrame
@@ -455,6 +435,7 @@
                                                 width="100%"
                                                 uiConfig="{applicationSet:'fiori'}"
                                                 vizType="stacked_column"
+                                                
                                             >
                                                 <viz:dataset>
                                                     <viz.data:FlattenedDataset
@@ -517,7 +498,8 @@
                             </commons:ChartContainer>
                         </f:content>
                     </f:Card>
-                </FlexBox>
+                </layout:Grid>
+                
             </VBox>
         </f:content>
     </f:DynamicPage>
