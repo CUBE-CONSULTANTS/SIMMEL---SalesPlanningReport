@@ -13,8 +13,22 @@ sap.ui.define([
 
         return BaseController.extend("salesplanningreport.controller.ReportVendite", {
             onInit: function () {
+                this.grafico()
+                this.grafico2();
+                this.grafico3();
 
-                //richiamre modello ProductModel
+
+
+            },
+
+
+            grafico: function () {
+                
+
+
+            },
+
+            grafico2: function () {
                 var oModel = this.getOwnerComponent().getModel("ProductModel");
                 this.getView().setModel(oModel, "ProductModel");
                 console.log(oModel);
@@ -49,7 +63,13 @@ sap.ui.define([
                 oModelChart.setData(dataChart);
                 this.getView().setModel(oModelChart, "ProductModelChart");
                 console.log(oModelChart);
+            },
 
+
+
+            grafico3: function () {
+
+                var oModel = this.getOwnerComponent().getModel("ProductModel");
                 var rawData = oModel.getProperty("/");
 
                 var aggregatedData = {};
@@ -106,13 +126,6 @@ sap.ui.define([
                 this.getView().setModel(oModel, "ProductModelPeriod");
                 
                 console.log(oModel);
-
-
-
-
-
-
-
             },
 
 
