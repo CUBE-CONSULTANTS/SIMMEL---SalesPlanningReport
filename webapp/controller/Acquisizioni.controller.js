@@ -1,13 +1,14 @@
 sap.ui.define([
+    "./BaseController",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/f/library"
-], function (Controller, JSONModel, fioriLibrary) {
+], function (BaseController, Controller, JSONModel, fioriLibrary) {
     "use strict";
 
     var LayoutType = fioriLibrary.LayoutType;
 
-    return Controller.extend("salesplanningreport.controller.Acquisizioni", {
+    return BaseController.extend("salesplanningreport.controller.Acquisizioni", {
         onInit: function () {
 			this.oRouter = this.getOwnerComponent().getRouter();
             let oModel = new JSONModel({

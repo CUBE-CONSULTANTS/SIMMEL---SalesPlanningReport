@@ -11,6 +11,13 @@
         <f:header>
             <f:DynamicPageHeader>
                 <f:content>
+                    <Toolbar>
+                        <Button
+                            press="navToHome"
+                            type="Back"
+                            text="Torna alla Home"
+                        />
+                    </Toolbar>
                     <fb:FilterBar
                         id="filterbar"
                         persistencyKey="myPersKey"
@@ -32,11 +39,8 @@
                                         change=".onSelectionChange"
                                         items="{
                                                 path: 'ProductModel>/'}"
-
                                     >
-                                        <core:ListItem 
-                                            
-                                        />
+                                        <core:ListItem />
                                         <core:ListItem
                                             key="{ProductModel>prodotto}"
                                             text="{ProductModel>prodotto}"
@@ -60,6 +64,26 @@
                                         <core:ListItem
                                             key="{ProductModel>cliente}"
                                             text="{ProductModel>cliente}"
+                                        />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="Nazione"
+                                label="Nazione"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <ComboBox
+                                        name="Nazione"
+                                        change=".onSelectionChange"
+                                        items="{
+												path: 'ProductModel>/'}"
+                                    >
+                                        <core:ListItem
+                                            key="{ProductModel>Nazionalita}"
+                                            text="{ProductModel>Nazionalita}"
                                         />
                                     </ComboBox>
                                 </fb:control>
@@ -97,8 +121,8 @@
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
-                                name="Periodo"
-                                label="Periodo"
+                                name="Periodo Acquisizione Ordine"
+                                label="Periodo Acquisizione Ordine"
                                 groupName="Group1"
                                 visibleInFilterBar="true"
                             >
@@ -173,7 +197,19 @@
                         minScreenWidth="Tablet"
                         demandPopin="true"
                     >
+                        <Text text="Valore" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
                         <Text text="Cliente" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Nazione" />
                     </Column>
                     <Column
                         minScreenWidth="Tablet"
@@ -185,7 +221,13 @@
                         minScreenWidth="Tablet"
                         demandPopin="true"
                     >
-                        <Text text="Periodo" />
+                        <Text text="Periodo Acquisizione" />
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                    >
+                        <Text text="Periodo Ipotesi Consegna" />
                     </Column>
                 </columns>
 
@@ -196,10 +238,15 @@
                     >
                         <cells>
                             <Text text="{ProductModel>prodotto}" />
+                            <Text text="{ProductModel>valoreRicavo}" />
                             <Text text="{ProductModel>cliente}" />
+                            <Text text="{ProductModel>Nazionalita}" />
                             <Text text="{ProductModel>probabilita}" />
                             <Text
                                 text="{ProductModel>date/da} - {ProductModel>date/a}"
+                            />
+                            <Text
+                                text="{ProductModel>periodoConsegna}"
                             />
                         </cells>
                     </ColumnListItem>

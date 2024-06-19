@@ -21,17 +21,49 @@ sap.ui.define([
 
             },
 
-
             grafico: function () {
+                var oModel = this.getOwnerComponent().getModel("ProductModel");
+                this.getView().setModel(oModel, "ProductModel");
+                console.log("ProductModel data:", oModel.getData());
                 
-
-
+                var oModelChart = new sap.ui.model.json.JSONModel();
+                var data = oModel.getProperty("/");
+                var dataChart = [];
+            
+                var yearValues = {};
+            
+                data.forEach((item) => {
+                    var dateParts = item.periodoAcquisizione.split("-");
+                    var year = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]).getFullYear();
+                    if (!yearValues[year]) {
+                        yearValues[year] = 0;
+                    }
+                    var value = Number(item.valoreRicavo);
+                    if (!isNaN(value)) {
+                        yearValues[year] += value;
+                    }
+                });
+            
+                for (var year in yearValues) {
+                    var value = yearValues[year];
+                    if (!isNaN(year) && !isNaN(value)) {
+                        dataChart.push({
+                            year: year,
+                            value: value
+                        });
+                    }
+                }
+            
+                oModelChart.setData(dataChart);
+                this.getView().setModel(oModelChart, "ProductModelCharttt");
+                console.log(oModelChart);
+                
             },
 
             grafico2: function () {
                 var oModel = this.getOwnerComponent().getModel("ProductModel");
                 this.getView().setModel(oModel, "ProductModel");
-                console.log(oModel);
+               // console.log(oModel);
 
                 //Creare un modello per il grafico estraendo la proprieta probabilita dal modello ProductModel
                 var oModelChart = new sap.ui.model.json.JSONModel();
@@ -60,73 +92,130 @@ sap.ui.define([
                     });
                 }
 
+                dataChart.sort(function(a, b) {
+                    if (a.probabilita < b.probabilita) {
+                        return -1;
+                    }
+                    if (a.probabilita > b.probabilita) {
+                        return 1;
+                    }
+                    return 0;
+                });
+
                 oModelChart.setData(dataChart);
                 this.getView().setModel(oModelChart, "ProductModelChart");
-                console.log(oModelChart);
+               // console.log(oModelChart);
             },
-
-
 
             grafico3: function () {
-
                 var oModel = this.getOwnerComponent().getModel("ProductModel");
-                var rawData = oModel.getProperty("/");
+                this.getView().setModel(oModel, "ProductModel");
+               // console.log(oModel);
 
-                var aggregatedData = {};
-                
-                function convertPeriodToMonth(period) {
-                    var monthMap = {
-                        '01': 'GENNAIO',
-                        '02': 'FEBBRAIO',
-                        '03': 'MARZO',
-                        '04': 'APRILE',
-                        '05': 'MAGGIO',
-                        '06': 'GIUGNO',
-                        '07': 'LUGLIO',
-                        '08': 'AGOSTO',
-                        '09': 'SETTEMBRE',
-                        '10': 'OTTOBRE',
-                        '11': 'NOVEMBRE',
-                        '12': 'DICEMBRE'
-                    };
-                
-                    var monthNumber = period.substring(3, 5); // Esempio: "03"
-                    return { monthName: monthMap[monthNumber], monthNumber: monthNumber };
+                //Creare un modello per il grafico estraendo la proprieta probabilita dal modello ProductModel
+                var oModelChart = new sap.ui.model.json.JSONModel();
+                var data = oModel.getProperty("/");
+                var dataChart = [];
+
+                var probCounts = {};
+
+                data.forEach((item) => {
+                    if (!probCounts[item.Nazionalita]) {
+                        probCounts[item.Nazionalita] = 0;
+                    }
+                    probCounts[item.Nazionalita]++;
+                });
+
+                // Calcolare il totale delle occorrenze
+                var totalCount = Object.values(probCounts).reduce((a, b) => a + b, 0);
+
+                // Creare l'array di dati per il grafico
+                for (var prob in probCounts) {
+                    var count = probCounts[prob];
+                    var percentage = (count / totalCount) * 100;
+                    dataChart.push({
+                        nazionalita: prob,
+                        percentage: percentage
+                    });
                 }
-                
-                // Aggrega i dati per periodo di acquisizione e probabilità
-                rawData.forEach(function (item) {
-                    var periodo = convertPeriodToMonth(item.periodoAcquisizione); // Esempio: { monthName: "MARZO", monthNumber: "03" }
-                    var monthName = periodo.monthName;
-                    var monthNumber = periodo.monthNumber;
-                
-                    if (!aggregatedData[monthNumber]) {
-                        aggregatedData[monthNumber] = { periodo: monthName, monthNumber: monthNumber, probabile: 0, pocoProbabile: 0, nonProbabile: 0 };
+
+                dataChart.sort(function(a, b) {
+                    if (a.nazionalita < b.nazionalita) {
+                        return -1;
                     }
-                
-                    if (item.probabilita === "H1") {
-                        aggregatedData[monthNumber].probabile += 1;
-                    } else if (item.probabilita === "H2") {
-                        aggregatedData[monthNumber].pocoProbabile += 1;
-                    } else if (item.probabilita === "H3") {
-                        aggregatedData[monthNumber].nonProbabile += 1;
+                    if (a.nazionalita > b.nazionalita) {
+                        return 1;
                     }
+                    return 0;
                 });
-                
-                var formattedData = Object.values(aggregatedData);
-                
-                // Ordina i dati in base al numero del mese
-                formattedData.sort(function(a, b) {
-                    return a.monthNumber - b.monthNumber;
-                });
-                
-                var oModel = new sap.ui.model.json.JSONModel();
-                
-                oModel.setData({ data: formattedData });
-                this.getView().setModel(oModel, "ProductModelPeriod");
-                
-                console.log(oModel);
+
+                oModelChart.setData(dataChart);
+                this.getView().setModel(oModelChart, "ProductModelChartt");
+                //console.log(oModelChart);
             },
+
+
+
+            // grafico3: function () {
+
+            //     var oModel = this.getOwnerComponent().getModel("ProductModel");
+            //     var rawData = oModel.getProperty("/");
+
+            //     var aggregatedData = {};
+
+            //     function convertPeriodToMonth(period) {
+            //         var monthMap = {
+            //             '01': 'GENNAIO',
+            //             '02': 'FEBBRAIO',
+            //             '03': 'MARZO',
+            //             '04': 'APRILE',
+            //             '05': 'MAGGIO',
+            //             '06': 'GIUGNO',
+            //             '07': 'LUGLIO',
+            //             '08': 'AGOSTO',
+            //             '09': 'SETTEMBRE',
+            //             '10': 'OTTOBRE',
+            //             '11': 'NOVEMBRE',
+            //             '12': 'DICEMBRE'
+            //         };
+
+            //         var monthNumber = period.substring(3, 5); // Esempio: "03"
+            //         return { monthName: monthMap[monthNumber], monthNumber: monthNumber };
+            //     }
+
+            //     // Aggrega i dati per periodo di acquisizione e probabilità
+            //     rawData.forEach(function (item) {
+            //         var periodo = convertPeriodToMonth(item.periodoAcquisizione); // Esempio: { monthName: "MARZO", monthNumber: "03" }
+            //         var monthName = periodo.monthName;
+            //         var monthNumber = periodo.monthNumber;
+
+            //         if (!aggregatedData[monthNumber]) {
+            //             aggregatedData[monthNumber] = { periodo: monthName, monthNumber: monthNumber, probabile: 0, pocoProbabile: 0, nonProbabile: 0 };
+            //         }
+
+            //         if (item.probabilita === "H1") {
+            //             aggregatedData[monthNumber].probabile += 1;
+            //         } else if (item.probabilita === "H2") {
+            //             aggregatedData[monthNumber].pocoProbabile += 1;
+            //         } else if (item.probabilita === "H3") {
+            //             aggregatedData[monthNumber].nonProbabile += 1;
+            //         }
+            //     });
+
+            //     var formattedData = Object.values(aggregatedData);
+
+            //     // Ordina i dati in base al numero del mese
+            //     formattedData.sort(function(a, b) {
+            //         return a.monthNumber - b.monthNumber;
+            //     });
+
+            //     var oModel = new sap.ui.model.json.JSONModel();
+
+            //     oModel.setData({ data: formattedData });
+            //     this.getView().setModel(oModel, "ProductModelPeriod");
+
+            //     console.log(oModel);
+            // },
 
 
             createColumnConfig: function () {

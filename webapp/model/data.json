@@ -2,17 +2,17 @@
     {
         "id": "1",
         "cliente": "Cliente 1",
-        "probabilita": "H1",
+        "probabilita": "H0",
         "descrProb": "Probabile",
         "prodotto": "Prodotto 1",
         "prodDescr": "Descrizione Prodotto 1",
         "quantita": "100",
         "valoreRicavo": "250",
-        "nazionalita": "Italia",
-        "periodoAcquisizione": "15-03-2022",
+        "Nazionalita": "Italia",
+        "periodoAcquisizione": "15-03-2018",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "15-03-2022",
+            "da": "15-03-2018",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 1"
@@ -27,10 +27,10 @@
         "quantita": "100",
         "valoreRicavo": "1000",
         "Nazionalita": "Francia",
-        "periodoAcquisizione": "27-06-2022",
+        "periodoAcquisizione": "27-06-2019",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "27-06-2022",
+            "da": "27-06-2019",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 2"
@@ -44,11 +44,11 @@
         "prodDescr": "Descrizione Prodotto 3",
         "quantita": "50000",
         "valoreRicavo": "65000",
-        "Nazionalita": "Italia",
-        "periodoAcquisizione": "10-11-2022",
+        "Nazionalita": "Spagna",
+        "periodoAcquisizione": "10-11-2020",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "10-11-2022",
+            "da": "10-11-2020",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 3"
@@ -63,10 +63,10 @@
         "quantita": "100",
         "valoreRicavo": "1000",
         "Nazionalita": "Germania",
-        "periodoAcquisizione": "23-01-2022",
+        "periodoAcquisizione": "23-01-2017",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "23-01-2022",
+            "da": "23-01-2017",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 4"
@@ -80,11 +80,11 @@
         "prodDescr": "Descrizione Prodotto 5",
         "quantita": "100",
         "valoreRicavo": "250",
-        "Nazionalita": "Italia",
-        "periodoAcquisizione": "14-02-2022",
+        "Nazionalita": "Portogallo",
+        "periodoAcquisizione": "14-02-2016",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "14-02-2022",
+            "da": "14-02-2016",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 5"
@@ -98,11 +98,11 @@
         "prodDescr": "Descrizione Prodotto 6",
         "quantita": "50000",
         "valoreRicavo": "65000",
-        "Nazionalita": "Italia",
-        "periodoAcquisizione": "09-08-2022",
+        "Nazionalita": "Regno Unito",
+        "periodoAcquisizione": "09-08-2015",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "09-08-2022",
+            "da": "09-08-2015",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 6"
@@ -116,11 +116,11 @@
         "prodDescr": "Descrizione Prodotto 7",
         "quantita": "100",
         "valoreRicavo": "1000",
-        "Nazionalita": "Francia",
-        "periodoAcquisizione": "05-04-2022",
+        "Nazionalita": "Belgio",
+        "periodoAcquisizione": "05-04-2021",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "05-04-2022",
+            "da": "05-04-2021",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 7"
@@ -134,11 +134,11 @@
         "prodDescr": "Descrizione Prodotto 8",
         "quantita": "100",
         "valoreRicavo": "250",
-        "Nazionalita": "Italia",
-        "periodoAcquisizione": "15-03-2022",
+        "Nazionalita": "Svizzera",
+        "periodoAcquisizione": "15-03-2014",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "15-03-2022",
+            "da": "15-03-2014",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 8"
@@ -146,17 +146,17 @@
     {
         "id": "9",
         "cliente": "Cliente 9",
-        "probabilita": "H3",
+        "probabilita": "H0",
         "descrProb": "Non Probabile",
         "prodotto": "Prodotto 9",
         "prodDescr": "Descrizione Prodotto 9",
         "quantita": "50000",
-        "valoreRicavo": "65000",
-        "Nazionalita": "Italia",
-        "periodoAcquisizione": "10-03-2022",
+        "valoreRicavo": "80000",
+        "Nazionalita": "Paesi Bassi",
+        "periodoAcquisizione": "10-03-2013",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "10-11-2022",
+            "da": "10-03-2013",
             "a": "31-12-2022"
         },
         "note": "Note Cliente 9"
@@ -164,19 +164,18 @@
     {
         "id": "10",
         "cliente": "Cliente 10",
-        "probabilita": "H2",
+        "probabilita": "H0",
         "descrProb": "Poco probabile",
         "prodotto": "Prodotto 10",
         "prodDescr": "Descrizione Prodotto 10",
         "quantita": "100",
         "valoreRicavo": "1000",
-        "Nazionalita": "Germania",
-        "periodoAcquisizione": "23-03-2022",
+        "Nazionalita": "Austria",
+        "periodoAcquisizione": "23-03-2023",
         "periodoConsegna": "31-12-2022",
         "date": {
-            "da": "23-01-2022",
+            "da": "23-03-2023",
             "a": "31-12-2022"
         }
     }
-
 ]

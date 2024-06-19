@@ -22,7 +22,14 @@ sap.ui.define(
             navToReportVendite: function (){
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("ReportVendite");
-            }
+            },
+
+            navToHome: function (){
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                oRouter.navTo("Home");
+            },
+
+            
 
 
         });

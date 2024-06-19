@@ -34,6 +34,13 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
+                    <Toolbar>
+                        <Button
+                            press="navToHome"
+                            type="Back"
+                            text="Torna alla Home"
+                        />
+                    </Toolbar>
                     <fb:FilterBar
                         id="filterbar"
                         persistencyKey="myPersKey"
@@ -117,8 +124,8 @@
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem
-                                name="Periodo"
-                                label="Periodo"
+                                name="Periodo Acquisizione"
+                                label="Periodo Acquisizione"
                                 groupName="Group1"
                                 visibleInFilterBar="true"
                             >
@@ -201,6 +208,9 @@
                                 <Text text="Cliente" />
                             </Column>
                             <Column>
+                                <Text text="Nazione" />
+                            </Column>
+                            <Column>
                                 <Text text="Prodotto" />
                             </Column>
                             <Column>
@@ -208,6 +218,9 @@
                             </Column>
                             <Column>
                                 <Text text="Valore" />
+                            </Column>
+                            <Column>
+                                <Text text="Periodo Ipotesi Consegna" />
                             </Column>
                         </columns>
                         <items>
@@ -217,100 +230,112 @@
                             >
                                 <cells>
                                     <Text text="{ProductModel>cliente}" />
+                                    <Text text="{ProductModel>Nazionalita}" />
                                     <Text text="{ProductModel>prodotto}" />
                                     <Text text="{ProductModel>quantita}" />
                                     <Text text="{ProductModel>valoreRicavo}" />
+                                    <Text
+                                        text="{ProductModel>periodoConsegna}"
+                                    />
                                 </cells>
                             </ColumnListItem>
                         </items>
                     </Table>
                 </VBox>
 
-            <!-- Grafico principale -->
+                <!-- Grafico principale -->
 
-                <f:Card id="chartReportVendite" visible="false">
+                <f:Card
+                    id="chartReportVendite"
+                    visible="false"
+                >
                     <f:content>
                         <commons:ChartContainer
+                            id="chartContainerrr"
                             showFullScreen="false"
                             showPersonalization="false"
-                            showLegend="true"
+                            showLegend="false"
                             showSelectionDetails="false"
-                            showLegendButton="true"
+                            showLegendButton="false"
                             autoAdjustHeight="false"
                             showZoom="false"
                             personalizationPress="attachPersonalizationPress"
                             contentChange="attachContentChange"
-                            title="Revenue"
-                            width="100%"
+                            title=""
                         >
                             <commons:content>
                                 <commons:ChartContainerContent
-                                    icon="sap-icon://column-chart"
-                                    title="Stacked Column Chart"
+                                    icon="sap-icon://line-chart"
+                                    title=""
                                 >
                                     <commons:content>
-                                        <viz:VizFrame
-                                            id="chartContainerVizFrameee"
-                                            height="700px"
-                                            width="100%"
-                                            uiConfig="{applicationSet:'fiori'}"
-                                            vizType="line"
+                                        <layout:FixFlex
+                                            id='chartFixFlexzz'
+                                            minFlexSize="100"
+                                            fitContainer="true"
                                         >
-                                            <viz:dataset>
-                                                <viz.data:FlattenedDataset
-                                                    data="{ProductModelPeriod>/data}"
+                                            <layout:flexContent>
+                                                <viz:VizFrame
+                                                    id="idVizFrame"
+                                                    uiConfig="{applicationSet:'fiori'}"
+                                                    vizType='column'
+                                                    width="100%"
+                                                    vizProperties='{
+        plotArea: {
+            dataLabel: {
+                visible: true
+            }
+        },
+        valueAxis: {
+            title: {
+                visible: true
+            }
+        },
+        categoryAxis: {
+            title: {
+                visible: true
+            }
+        },
+        title: {
+            visible: true,
+            text: "Titolo del grafico"
+        }
+    }'
                                                 >
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition
-                                                            name="Periodo"
-                                                            value="{periodo}"
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset
+                                                            data="{ProductModelCharttt>/}"
+                                                        >
+                                                            <viz.data:dimensions
+                                                            >
+                                                                <viz.data:DimensionDefinition
+                                                                    name="Anno"
+                                                                    value="{ProductModelCharttt>year}"
+                                                                />
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                <viz.data:MeasureDefinition
+                                                                    name="Valore Ricavo"
+                                                                    value="{ProductModelCharttt>value}"
+                                                                />
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem
+                                                            uid="valueAxis"
+                                                            type="Measure"
+                                                            values="Valore Ricavo"
                                                         />
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Probabile"
-                                                            value="{probabile}"
+                                                        <viz.feeds:FeedItem
+                                                            uid="categoryAxis"
+                                                            type="Dimension"
+                                                            values="Anno"
                                                         />
-                                                        <viz.data:MeasureDefinition
-                                                            name="Poco Probabile"
-                                                            value="{pocoProbabile}"
-                                                        />
-                                                        <viz.data:MeasureDefinition
-                                                            name="Non Probabile"
-                                                            value="{nonProbabile}"
-                                                        />
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem
-                                                    uid="categoryAxis"
-                                                    type="Dimension"
-                                                    values="Periodo"
-                                                />
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Probabile"
-                                                />
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Poco Probabile"
-                                                />
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Non Probabile"
-                                                />
-                                            </viz:feeds>
-                                            <viz:dependents>
-                                                <viz:Popover
-                                                    id="idPopOverree"
-                                                />
-                                            </viz:dependents>
-                                        </viz:VizFrame>
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </layout:flexContent>
+                                        </layout:FixFlex>
                                     </commons:content>
                                 </commons:ChartContainerContent>
                             </commons:content>
@@ -318,15 +343,13 @@
                     </f:content>
                 </f:Card>
 
-                <!-- Chart Container -->
-                <layout:Grid defaultSpan="L6 M6 S12" id="gridChart" visible="false"> 
-                
-                
-                
-                    <f:Card
-                        class="sapUiMediumMargin"
-                       
-                    >
+                <!-- GRAFICO 2 -->
+                <layout:Grid
+                    defaultSpan="L6 M6 S12"
+                    id="gridChart"
+                    visible="false"
+                >
+                    <f:Card class="sapUiMediumMargin">
                         <f:content>
                             <commons:ChartContainer
                                 id="chartContainer"
@@ -390,6 +413,7 @@
                                                                 uid="color"
                                                                 type="Dimension"
                                                                 values="Product"
+                                                                
                                                             />
                                                         </viz:feeds>
                                                     </viz:VizFrame>
@@ -402,96 +426,77 @@
                         </f:content>
                     </f:Card>
 
-                    <!-- Stacked Column Chart -->
+                    <!-- GRAFICO 3 -->
 
-                    <f:Card
-                        class="sapUiMediumMargin"
-                        
-                    >
+                    <f:Card class="sapUiMediumMargin">
                         <f:content>
                             <commons:ChartContainer
                                 id="chartContainerr"
                                 showFullScreen="false"
                                 showPersonalization="false"
-                                showLegend="true"
+                                showLegend="false"
                                 showSelectionDetails="false"
-                                showLegendButton="true"
+                                showLegendButton="false"
                                 autoAdjustHeight="false"
                                 showZoom="false"
                                 personalizationPress="attachPersonalizationPress"
                                 contentChange="attachContentChange"
                                 title=""
-                                
                             >
                                 <commons:content>
                                     <commons:ChartContainerContent
-                                        icon="sap-icon://column-chart"
+                                        icon="sap-icon://line-chart"
                                         title=""
                                     >
                                         <commons:content>
-                                            <viz:VizFrame
-                                                id="chartContainerVizFramee"
-                                                height="700px"
-                                                width="100%"
-                                                uiConfig="{applicationSet:'fiori'}"
-                                                vizType="stacked_column"
-                                                
+                                            <layout:FixFlex
+                                                id='chartFixFlexzx'
+                                                minFlexSize="50"
                                             >
-                                                <viz:dataset>
-                                                    <viz.data:FlattenedDataset
-                                                        data="{ProductModelPeriod>/data}"
+                                                <layout:flexContent>
+                                                    <viz:VizFrame
+                                                        id="chartContainerVizFramee"
+                                                        width="100%"
+                                                        height="700px"
+                                                        uiConfig="{applicationSet:'fiori'}"
+                                                        vizType="pie"
                                                     >
-                                                        <viz.data:dimensions>
-                                                            <viz.data:DimensionDefinition
-                                                                name="Periodo"
-                                                                value="{periodo}"
-                                                            />
-                                                        </viz.data:dimensions>
-                                                        <viz.data:measures>
-                                                            <viz.data:MeasureDefinition
-                                                                name="Probabile"
-                                                                value="{probabile}"
-                                                            />
-                                                            <viz.data:MeasureDefinition
-                                                                name="Poco Probabile"
-                                                                value="{pocoProbabile}"
-                                                            />
-                                                            <viz.data:MeasureDefinition
-                                                                name="Non Probabile"
-                                                                value="{nonProbabile}"
-                                                            />
-                                                        </viz.data:measures>
-                                                    </viz.data:FlattenedDataset>
-                                                </viz:dataset>
+                                                        <viz:dataset>
+                                                            <viz.data:FlattenedDataset
+                                                                data="{ProductModelChartt>/}"
+                                                            >
+                                                                <viz.data:dimensions
+                                                                >
+                                                                    <viz.data:DimensionDefinition
+                                                                        name="Product"
+                                                                        value="{ProductModelChartt>nazionalita}"
+                                                                    />
+                                                                </viz.data:dimensions>
+                                                                <viz.data:measures
+                                                                >
+                                                                    <viz.data:MeasureDefinition
+                                                                        name="Probability"
+                                                                        value="{ProductModelChartt>percentage}"
+                                                                    />
+                                                                </viz.data:measures>
+                                                            </viz.data:FlattenedDataset>
+                                                        </viz:dataset>
 
-                                                <viz:feeds>
-                                                    <viz.feeds:FeedItem
-                                                        uid="categoryAxis"
-                                                        type="Dimension"
-                                                        values="Periodo"
-                                                    />
-                                                    <viz.feeds:FeedItem
-                                                        uid="valueAxis"
-                                                        type="Measure"
-                                                        values="Probabile"
-                                                    />
-                                                    <viz.feeds:FeedItem
-                                                        uid="valueAxis"
-                                                        type="Measure"
-                                                        values="Poco Probabile"
-                                                    />
-                                                    <viz.feeds:FeedItem
-                                                        uid="valueAxis"
-                                                        type="Measure"
-                                                        values="Non Probabile"
-                                                    />
-                                                </viz:feeds>
-                                                <viz:dependents>
-                                                    <viz:Popover
-                                                        id="idPopOverre"
-                                                    />
-                                                </viz:dependents>
-                                            </viz:VizFrame>
+                                                        <viz:feeds>
+                                                            <viz.feeds:FeedItem
+                                                                uid="size"
+                                                                type="Measure"
+                                                                values="Probability"
+                                                            />
+                                                            <viz.feeds:FeedItem
+                                                                uid="color"
+                                                                type="Dimension"
+                                                                values="Product"
+                                                            />
+                                                        </viz:feeds>
+                                                    </viz:VizFrame>
+                                                </layout:flexContent>
+                                            </layout:FixFlex>
                                         </commons:content>
                                     </commons:ChartContainerContent>
                                 </commons:content>
@@ -499,7 +504,6 @@
                         </f:content>
                     </f:Card>
                 </layout:Grid>
-                
             </VBox>
         </f:content>
     </f:DynamicPage>
